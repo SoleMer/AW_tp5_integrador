@@ -29,6 +29,7 @@ public class ClienteController {
         return this.service.save(cliente);
     }
 
+    /* deberiamos usar el id?*/
     @DeleteMapping
     public void delete(@RequestBody Cliente cliente) throws Throwable {
         this.service.delete(cliente);
