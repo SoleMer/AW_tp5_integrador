@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/producto")
@@ -24,9 +25,14 @@ public class ProductoController {
         return this.service.getAll();
     }
 
-    @DeleteMapping
-    public void delete(@RequestBody Producto p) throws Throwable {
-        this.service.delete(p);
+    @GetMapping("/{id}")
+    public Optional<Producto> findById(@PathVariable String id) throws Throwable {
+        return this.service.findById(Integer.valueOf(id));
+    }
+
+    @DeleteMapping("/{id}")
+    public boolean delete(@PathVariable String id) throws Throwable {
+        return this.service.delete(Integer.valueOf(id));
     }
 
     @PutMapping
