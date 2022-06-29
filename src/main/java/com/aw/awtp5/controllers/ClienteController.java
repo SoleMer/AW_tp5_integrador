@@ -1,5 +1,6 @@
 package com.aw.awtp5.controllers;
 
+import com.aw.awtp5.dto.ClienteGastoDTO;
 import com.aw.awtp5.entities.Cliente;
 import com.aw.awtp5.services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,16 @@ public class ClienteController {
     @DeleteMapping("/{id}")
     public boolean delete(@PathVariable String id) {
         return this.service.delete(Integer.valueOf(id));
+    }
+/*
+    @GetMapping("/gastos")
+    public HashMap<String, Integer> getGastosClientes() {
+        return this.service.getGastos();
+    }
+*/
+    @GetMapping("/gastos")
+    public List<ClienteGastoDTO> getTotalCompras() throws Throwable{
+        return this.service.getTotalCompras();
     }
 
 }
