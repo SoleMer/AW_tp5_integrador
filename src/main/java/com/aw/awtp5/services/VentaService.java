@@ -1,6 +1,7 @@
 package com.aw.awtp5.services;
 
 import com.aw.awtp5.dto.DetalleVentaDTO;
+import com.aw.awtp5.dto.VentasDiariasDTO;
 import com.aw.awtp5.entities.DetalleVenta;
 import com.aw.awtp5.entities.Venta;
 import com.aw.awtp5.ropositories.DetalleVentaRepository;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 @Service("VentaService")
@@ -41,5 +43,9 @@ public class VentaService {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    public List<VentasDiariasDTO> getVentasDiarias() {
+        return this.detalleVentaRepository.getVentasDiarias();
     }
 }
