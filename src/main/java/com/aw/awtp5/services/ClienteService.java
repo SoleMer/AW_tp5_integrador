@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service("ClienteService")
 public class ClienteService {
@@ -21,7 +22,15 @@ public class ClienteService {
         return  this.repository.save(cliente);
     }
 
-    public void delete(Cliente cliente) throws Throwable {
-        this.repository.delete(cliente);
+    public boolean delete(int id) {
+        if(this.repository.existsById(id)){
+            this.repository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
+
+    public Optional<Cliente> findById(int id) {
+        return this.repository.findById(id);
     }
 }
