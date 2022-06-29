@@ -6,6 +6,23 @@ public class ClienteGastoDTO {
 
     public ClienteGastoDTO(String nombreApellido, double totalCompras) {
         this.nombreApellido = nombreApellido;
+        System.out.println(totalCompras);
+        this.totalCompras = totalCompras;
+    }
+
+    public String getNombreApellido() {
+        return nombreApellido;
+    }
+
+    public void setNombreApellido(String nombreApellido) {
+        this.nombreApellido = nombreApellido;
+    }
+
+    public double getTotalCompras() {
+        return totalCompras;
+    }
+
+    public void setTotalCompras(double totalCompras) {
         this.totalCompras = totalCompras;
     }
 }

@@ -24,10 +24,12 @@ INTENTO DE HACERLO SIN DTO PARA NO ABUSAR
 
     */
 
-    @Query("select new com.aw.awtp5.dto.ClienteGastoDTO(c.nombreApellido, (sum(p.precio)*sum(dv.cantidad))) "
-            +"from Cliente c "+"left join Venta v on Cliente.id "
+    @Query("select new com.aw.awtp5.dto.ClienteGastoDTO(c.nombreApellido, sum(p.precio * dv.cantidad)) "
+            +"from Cliente c "
+            +"left join Venta v on c.id = v.clienteId "
             +"left join DetalleVenta dv on v.id = dv.ventaId "
-            +"left join Producto p on dv.productoId = p.id "+"group by c.id")
+            +"left join Producto p on dv.productoId = p.id "
+            +"group by c.id")
     List<ClienteGastoDTO> getTotalCompras();
 
 }
