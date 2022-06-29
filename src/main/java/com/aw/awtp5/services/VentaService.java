@@ -1,6 +1,7 @@
 package com.aw.awtp5.services;
 
 import com.aw.awtp5.dto.DetalleVentaDTO;
+import com.aw.awtp5.dto.MontoTotalClientesDTO;
 import com.aw.awtp5.entities.DetalleVenta;
 import com.aw.awtp5.entities.Venta;
 import com.aw.awtp5.ropositories.DetalleVentaRepository;
@@ -22,24 +23,28 @@ public class VentaService {
     @Autowired
     DetalleVentaRepository detalleVentaRepository;
 
-    public boolean save(DetalleVentaDTO detalleVentaDTO) {
+    public DetalleVentaDTO save(DetalleVentaDTO detalleVentaDTO) {
         try {
             int suma = 0;
-            for (Integer cantidad: detalleVentaDTO.getProductos().values()) {
-                suma += cantidad;
+            for (DetalleVenta dv: detalleVentaDTO.getProductos()) {
+                suma += dv.getCantidad();
             }
             if (suma < 4) {
                 Venta venta = new Venta(detalleVentaDTO.getClienteId(), LocalDate.now());
                 Venta v = this.repository.save(venta);
-                for (Map.Entry<Integer, Integer> p : detalleVentaDTO.getProductos().entrySet()) {
-                    DetalleVenta detalleVenta = new DetalleVenta(p.getKey(), v.getId(), p.getValue());
+                for (DetalleVenta detalleVenta : detalleVentaDTO.getProductos()) {
                     this.detalleVentaRepository.save(detalleVenta);
                 }
-                return true;
+                return detalleVentaDTO;
             }
-            return false;
+            return null;
         } catch (Exception e) {
-            return false;
+            return null;
         }
+    }
+
+    public MontoTotalClientesDTO getRepoteClientesMonto( ) {
+
+        return null;
     }
 }
