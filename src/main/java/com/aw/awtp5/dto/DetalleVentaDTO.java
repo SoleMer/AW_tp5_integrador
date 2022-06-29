@@ -13,20 +13,20 @@ public class DetalleVentaDTO {
 
     private int clienteId;
 
-    private List<DetalleVenta> detalles;
+    private List<DetalleVenta> productos;
 
-	public DetalleVentaDTO(int clienteId, List<DetalleVenta> detalles){
-		this.detalles = new ArrayList<>();
-		this.detalles = detalles;
+	public DetalleVentaDTO(int clienteId, List<DetalleVenta> productos){
+		this.productos = new ArrayList<>();
+		this.productos = productos;
 		this.clienteId = clienteId;
 	}
 
 	public List<DetalleVenta> getProductos() {
-		return detalles;
+		return productos;
 	}
 
 	public void setDetalles(List<DetalleVenta> detalles) {
-		this.detalles = detalles;
+		this.productos = detalles;
 	}
 
 	public int getClienteId() {
@@ -41,7 +41,7 @@ public class DetalleVentaDTO {
 	public String toString() {
 		return "DetalleVentaDTO{" +
 				"clienteId=" + clienteId +
-				", detalles=" + detalles +
+				", detalles=" + productos +
 				'}';
 	}
 }

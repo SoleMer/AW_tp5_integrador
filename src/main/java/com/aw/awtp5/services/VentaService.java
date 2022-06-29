@@ -21,11 +21,18 @@ public class VentaService {
 
     public DetalleVentaDTO save(DetalleVentaDTO detalleVentaDTO) {
         try {
-            int suma = 0;
+
+            int suma = this.getProductosDiarios(detalleVentaDTO.getClienteId());//0; // inicializar a partir de los productos que compro en el dia;
+            if(suma >= 3) {
+                return null;
+            }
+
             for (DetalleVenta dv: detalleVentaDTO.getProductos()) {
                 suma += dv.getCantidad();
             }
-            if (suma < 4) {
+            System.out.println(suma);
+            if (suma <= 3) {
+
                 Venta venta = new Venta(detalleVentaDTO.getClienteId(), LocalDate.now());
                 Venta v = this.repository.save(venta);
                 for (DetalleVenta detalleVenta : detalleVentaDTO.getProductos()) {
@@ -38,6 +45,10 @@ public class VentaService {
         } catch (Exception e) {
             return null;
         }
+    }
+
+    private int getProductosDiarios(int clienteId) {
+        return this.repository.getCantidadProductosDeHoy(clienteId);
     }
 
 }
