@@ -10,11 +10,9 @@ import java.util.Objects;
 public class DetalleVentaPK implements Serializable {
     @Column(name = "Producto_id")
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int productoId;
     @Column(name = "Venta_id")
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int ventaId;
 
     public int getProductoId() {

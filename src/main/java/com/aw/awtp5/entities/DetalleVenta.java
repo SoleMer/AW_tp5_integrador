@@ -15,6 +15,7 @@ public class DetalleVenta {
     @Id
     @Column(name = "Venta_id")
     private int ventaId;
+
     @Basic
     @Column(name = "cantidad")
     private int cantidad;
@@ -22,6 +23,11 @@ public class DetalleVenta {
     public DetalleVenta(int productoId, int ventaId, int cantidad) {
         this.productoId = productoId;
         this.ventaId = ventaId;
+        this.cantidad = cantidad;
+    }
+
+    public DetalleVenta(int productoId, int cantidad) {
+        this.productoId = productoId;
         this.cantidad = cantidad;
     }
 
@@ -63,5 +69,14 @@ public class DetalleVenta {
     @Override
     public int hashCode() {
         return Objects.hash(productoId, ventaId, cantidad);
+    }
+
+    @Override
+    public String toString() {
+        return "DetalleVenta{" +
+                "productoId=" + productoId +
+                ", ventaId=" + ventaId +
+                ", cantidad=" + cantidad +
+                '}';
     }
 }

@@ -11,20 +11,37 @@ import java.util.Map;
 @Getter
 public class DetalleVentaDTO {
 
-    private Venta venta;
+    private int clienteId;
 
     private List<DetalleVenta> detalles;
 
-	public DetalleVentaDTO(){
-		detalles = new ArrayList<>();
+	public DetalleVentaDTO(int clienteId, List<DetalleVenta> detalles){
+		this.detalles = new ArrayList<>();
+		this.detalles = detalles;
+		this.clienteId = clienteId;
 	}
 
 	public List<DetalleVenta> getProductos() {
 		return detalles;
 	}
 
-	public int getClienteId() {
-		return venta.getClienteId();
+	public void setDetalles(List<DetalleVenta> detalles) {
+		this.detalles = detalles;
 	}
 
+	public int getClienteId() {
+		return clienteId;
+	}
+
+	public void setClienteId(int id){
+		this.clienteId = id;
+	}
+
+	@Override
+	public String toString() {
+		return "DetalleVentaDTO{" +
+				"clienteId=" + clienteId +
+				", detalles=" + detalles +
+				'}';
+	}
 }
