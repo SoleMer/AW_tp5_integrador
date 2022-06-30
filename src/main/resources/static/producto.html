@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Producto</title>
+</head>
+<body>
+<h2>AMB Productos</h2>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>nombre</th>
+        <th>Precio</th>
+        <th>Stock</th>
+        <th>Borrar</th>
+        <th>Editar</th>
+    </tr>
+    </thead>
+    <tbody id="body">
+
+    </tbody>
+</table>
+<br>
+<p id="contenedorBorrar"></p>
+<br>
+<form id="editar">
+</form>
+<p id=contenedorEditar></p>
+<br>
+<form>
+    <div>
+        <br>
+        <br>
+        <label>Insert a product:</label>
+        <br>
+        <input type="text" name="name" id="name" placeholder="Name of the product" required>
+        <br>
+        <input type="number" name="unitPrice" id="unitPrice" placeholder="Unit price of the product" required>
+        <br>
+        <input type="number" name="stock" id="stock" placeholder="stock of the product" required>
+        <br>
+        <input type="button" id="btnInsertProduct" value="ENVIAR">
+    </div>
+</form>
+<p id="contenedorInsert"></p>
+<br>
+
+<script type="text/javascript" src="producto.js"></script>
+</body>
+</html>
