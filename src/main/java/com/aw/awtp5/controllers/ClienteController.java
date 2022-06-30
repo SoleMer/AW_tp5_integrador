@@ -1,11 +1,13 @@
 package com.aw.awtp5.controllers;
 
+import com.aw.awtp5.dto.ClienteGastoDTO;
 import com.aw.awtp5.entities.Cliente;
 import com.aw.awtp5.services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/cliente")
@@ -24,14 +26,29 @@ public class ClienteController {
         return this.service.getAll();
     }
 
+    @GetMapping("/{id}")
+    public Optional<Cliente> findById(@PathVariable String id) throws Throwable {
+        return this.service.findById(Integer.valueOf(id));
+    }
+
     @PutMapping
     public Cliente update(@RequestBody Cliente cliente) throws Throwable {
         return this.service.save(cliente);
     }
-
-    @DeleteMapping
-    public void delete(@RequestBody Cliente cliente) throws Throwable {
-        this.service.delete(cliente);
+    
+    @DeleteMapping("/{id}")
+    public boolean delete(@PathVariable String id) {
+        return this.service.delete(Integer.valueOf(id));
+    }
+/*
+    @GetMapping("/gastos")
+    public HashMap<String, Integer> getGastosClientes() {
+        return this.service.getGastos();
+    }
+*/
+    @GetMapping("/gastos")
+    public List<ClienteGastoDTO> getTotalCompras() throws Throwable{
+        return this.service.getTotalCompras();
     }
 
 }

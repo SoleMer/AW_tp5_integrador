@@ -2,6 +2,7 @@ package com.aw.awtp5.services;
 
 import com.aw.awtp5.controllers.ProductoController;
 import com.aw.awtp5.dto.DetalleVentaDTO;
+import com.aw.awtp5.dto.VentasDiariasDTO;
 import com.aw.awtp5.entities.DetalleVenta;
 import com.aw.awtp5.entities.Venta;
 import com.aw.awtp5.ropositories.DetalleVentaRepository;
@@ -10,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+
+import java.util.Iterator;
 import java.util.List;
 
 @Service("VentaService")
