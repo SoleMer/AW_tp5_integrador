@@ -1,22 +1,46 @@
 package com.aw.awtp5.dto;
 
+import com.aw.awtp5.entities.DetalleVenta;
 import lombok.Getter;
 
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Getter
 public class DetalleVentaDTO {
 
-    private int clienteId;
+	private int clienteId;
 
-    private Map<Integer, Integer> productos;
+	private List<DetalleVenta> productos;
 
-	public Map<Integer, Integer> getProductos() {
+	public DetalleVentaDTO(int clienteId, List<DetalleVenta> productos){
+		this.productos = new ArrayList<>();
+		this.productos = productos;
+		this.clienteId = clienteId;
+	}
+
+	public List<DetalleVenta> getProductos() {
 		return productos;
+	}
+
+	public void setDetalles(List<DetalleVenta> productos) {
+		this.productos = productos;
 	}
 
 	public int getClienteId() {
 		return clienteId;
 	}
 
+	public void setClienteId(int id){
+		this.clienteId = id;
+	}
+
+	@Override
+	public String toString() {
+		return "DetalleVentaDTO{" +
+				"clienteId=" + clienteId +
+				", detalles=" + productos +
+				'}';
+	}
 }

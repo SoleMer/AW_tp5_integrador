@@ -26,6 +26,10 @@ public class Producto {
         this.precio = precio;
     }
 
+    public Producto() {
+
+    }
+
     public int getId() {
         return id;
     }
@@ -63,7 +67,7 @@ public class Producto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Producto that = (Producto) o;
-        return id == that.id && stock == that.stock && Double.compare(that.precio, precio) == 0 && Objects.equals(nombre, that.nombre);
+        return id == that.id ;
     }
 
     @Override

@@ -1,13 +1,11 @@
 package com.aw.awtp5.controllers;
 
-import com.aw.awtp5.dto.ProductoCantidadVentasDTO;
 import com.aw.awtp5.entities.Producto;
 import com.aw.awtp5.services.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/producto")
@@ -27,7 +25,7 @@ public class ProductoController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Producto> findById(@PathVariable String id) throws Throwable {
+    public Producto findById(@PathVariable String id) throws Throwable {
         return this.service.findById(Integer.valueOf(id));
     }
 
@@ -42,7 +40,7 @@ public class ProductoController {
     }
 
     @GetMapping("/masVendido")
-    public List<ProductoCantidadVentasDTO> getMasVendido() {
+    public Producto getMasVendido() {
         return this.service.getMasVendido();
     }
 
