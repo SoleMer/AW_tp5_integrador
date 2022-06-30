@@ -1,5 +1,6 @@
 package com.aw.awtp5.controllers;
 
+import com.aw.awtp5.dto.ProductoCantidadVentasDTO;
 import com.aw.awtp5.entities.Producto;
 import com.aw.awtp5.services.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,11 @@ public class ProductoController {
     @PutMapping
     public Producto update(@RequestBody Producto producto)  throws Throwable {
         return this.service.save(producto);
+    }
+
+    @GetMapping("/masVendido")
+    public List<ProductoCantidadVentasDTO> getMasVendido() {
+        return this.service.getMasVendido();
     }
 
 }

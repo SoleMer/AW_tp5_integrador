@@ -20,6 +20,12 @@ public class Producto {
     @Column(name = "precio")
     private double precio;
 
+    public Producto(String nombre, int stock, double precio) {
+        this.nombre = nombre;
+        this.stock = stock;
+        this.precio = precio;
+    }
+
     public int getId() {
         return id;
     }

@@ -1,5 +1,6 @@
 package com.aw.awtp5.services;
 
+import com.aw.awtp5.dto.ProductoCantidadVentasDTO;
 import com.aw.awtp5.entities.Producto;
 import com.aw.awtp5.ropositories.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,5 +33,9 @@ public class ProductoService {
 
     public Optional<Producto> findById(Integer id) {
         return this.repository.findById(id);
+    }
+
+    public List<ProductoCantidadVentasDTO> getMasVendido() {
+        return this.repository.getMasVendido();
     }
 }
