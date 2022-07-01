@@ -24,4 +24,8 @@ public interface DetalleVentaRepository extends JpaRepository<DetalleVenta, Deta
             + "ORDER BY v.fecha DESC ")
     public List<VentasDiariasDTO> getVentasDiarias();
 
+    @Query(value = "DELETE FROM detalle_venta dv WHERE dv.venta_id = ?1", nativeQuery = true)
+    public void deleteDetalleVentaByVentaId(int ventaId);
+
+    public void deleteAllByVentaId(int ventaId);
 }

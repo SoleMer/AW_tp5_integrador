@@ -16,14 +16,17 @@ public class ClienteService {
     @Autowired
     ClienteRepository repository;
 
+    @Transactional
     public List<Cliente> getAll() throws Throwable {
         return this.repository.findAll();
     }
 
+    @Transactional
     public Cliente save(Cliente cliente) throws Throwable {
         return  this.repository.save(cliente);
     }
 
+    @Transactional
     public boolean delete(int id) {
         if(this.repository.existsById(id)){
             this.repository.deleteById(id);
@@ -32,15 +35,11 @@ public class ClienteService {
         return false;
     }
 
+    @Transactional
     public Optional<Cliente> findById(int id) {
         return this.repository.findById(id);
     }
 
-/*
-    public HashMap<String, Integer> getGastos() {
-        return this.repository.getGastos();
-    }
-*/
     @Transactional
     public List<ClienteGastoDTO> getTotalCompras() throws Throwable {
         return this.repository.getTotalCompras();

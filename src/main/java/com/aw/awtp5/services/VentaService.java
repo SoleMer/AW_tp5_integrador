@@ -10,6 +10,7 @@ import com.aw.awtp5.ropositories.VentaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,11 +30,9 @@ public class VentaService {
     @Autowired
     ProductoService productoService;
 
+    @Transactional
     public DetalleVentaDTO save(DetalleVentaDTO detalleVentaDTO) throws Throwable {
-
-
         int comprasDeHoy = this.getProductosDiarios(detalleVentaDTO.getClienteId());
-        System.out.println(comprasDeHoy);
         if (comprasDeHoy >= 3) {
             return null;
         }
@@ -43,7 +42,6 @@ public class VentaService {
         if (totalCompras > 3) {
             return null;
         }
-        System.out.println(totalCompras);
 
         if (!this.verificarProductos(detalleVentaDTO.getProductos())) {
             return null;
@@ -71,6 +69,7 @@ public class VentaService {
 
     }
 
+
     private boolean verificarProductos(List<DetalleVenta> productos) {
         ArrayList<Producto> lista = new ArrayList<>();
         for (DetalleVenta dv : productos) {
@@ -87,6 +86,7 @@ public class VentaService {
         return true;
     }
 
+
     private int sumarComprasDelCarrito(int totalCompras, List<DetalleVenta> productos) {
         for (DetalleVenta dv : productos) {
             totalCompras += dv.getCantidad();
@@ -94,11 +94,38 @@ public class VentaService {
         return totalCompras;
     }
 
-    private int getProductosDiarios(int clienteId) {
+    @Transactional
+    public int getProductosDiarios(int clienteId) {
         return this.repository.getCantidadProductosDeHoy(clienteId);
     }
 
+    @Transactional
     public List<Venta> getVentasPorDia() {
         return this.repository.getAll();
     }
+
+    @Transactional
+    public boolean delete(int id) throws Throwable{
+        if(this.repository.existsById(id)) {
+            this.detalleVentaRepository.deleteAllByVentaId(id);
+            this.repository.deleteVentaById(id);
+            return true;
+        }
+        return false;
+    }
+
+    /*
+    public boolean update(Venta venta) {
+        DetalleVentaDTO dv = this.detalleVentaRepository.getById(venta.getId()); //TODO
+        if (v.getClienteId() != venta.getClienteId()){
+
+        } else if (!dv.getFecha().equals(venta.getFecha())) {
+            //obtengo detalleVentaDto (cliente, fecha)
+            //compruebo si la cantidad de fechaNueva + dv.cantidad <= 3
+                //edito
+            //return false;
+        }
+        return false;
+    }
+    */
 }
