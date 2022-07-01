@@ -3,6 +3,8 @@ package com.aw.awtp5.controllers;
 import com.aw.awtp5.entities.Producto;
 import com.aw.awtp5.services.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -40,8 +42,12 @@ public class ProductoController {
     }
 
     @GetMapping("/masVendido")
-    public Producto getMasVendido() {
-        return this.service.getMasVendido();
+    public ResponseEntity<Producto> getMasVendido() {
+        Producto p = this.service.getMasVendido();
+        if(p == null) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(p, HttpStatus.CREATED);
     }
 
 }

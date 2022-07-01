@@ -34,6 +34,10 @@ public class ProductoService {
     }
 
     public Producto getMasVendido() {
+        List<Producto> productos = this.repository.getMasVendido();
+        if(productos.isEmpty()){
+            return null;
+        }
         return this.repository.getMasVendido().get(0);
     }
 }

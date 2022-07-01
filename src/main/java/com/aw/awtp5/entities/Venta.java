@@ -13,7 +13,7 @@ public class Venta {
     @Column(name = "id")
     private int id;
     @Basic
-    @Column(name = "Cliente_id")
+    @Column(name = "cliente_id")
     private int clienteId;
     @Basic
     @Column(name = "fecha")

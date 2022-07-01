@@ -34,7 +34,7 @@ public interface ProductoRepository extends JpaRepository<Producto, Integer> {
     limit 1;
      */
 
-    @Query("select new Producto(p.nombre, p.stock, p.precio) " +
+    @Query("select new Producto(p.id, p.nombre, p.stock, p.precio) " +
             "from DetalleVenta dv " +
             "join Producto p on dv.productoId = p.id " +
             "group by dv.productoId " +
