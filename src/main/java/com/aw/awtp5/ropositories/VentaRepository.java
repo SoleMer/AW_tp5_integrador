@@ -11,7 +11,7 @@ import java.util.List;
 public interface VentaRepository extends JpaRepository<Venta, Integer> {
     @Query(value = "SELECT COALESCE(sum(dv.cantidad), 0) " +
             "FROM venta v " +
-            "JOIN detalle_venta dv ON v.id = dv.venta_id " +
+            "JOIN detalle_venta dv ON v.id = dv.venta_id AND v.fecha = CURRENT_DATE " +
             "WHERE v.cliente_id = ?1 ",
             nativeQuery = true)
     int getCantidadProductosDeHoy(int clienteId);

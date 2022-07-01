@@ -32,12 +32,14 @@ public class VentaService {
     public DetalleVentaDTO save(DetalleVentaDTO detalleVentaDTO) throws Throwable {
 
 
-        int comprasDeHoy = this.getProductosDiarios(detalleVentaDTO.getClienteId());//0; // inicializar a partir de los productos que compro en el dia;
+        int comprasDeHoy = this.getProductosDiarios(detalleVentaDTO.getClienteId());
+        System.out.println(comprasDeHoy);
         if (comprasDeHoy >= 3) {
             return null;
         }
 
         int totalCompras = this.sumarComprasDelCarrito(comprasDeHoy, detalleVentaDTO.getProductos());
+
         if (totalCompras > 3) {
             return null;
         }
