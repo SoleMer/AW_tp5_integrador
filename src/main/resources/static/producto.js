@@ -142,12 +142,7 @@ function editar(id){
     let label = document.createElement("label");
     label.innerHTML = "Editar un producto: ";
 
-    let br1 = document.createElement("br");
-    let input1 = document.createElement("input");
-    input1.type = "text";
-    input1.value = id;
-    input1.id = "idI";
-    input1.readOnly = "true";
+
 
     let br2 = document.createElement("br");
     let input2 = document.createElement("input");
@@ -174,8 +169,7 @@ function editar(id){
     boton.id = "enviar";
 
     form.appendChild(label);
-    form.appendChild(br1);
-    form.appendChild(input1);
+
     form.appendChild(br2);
     form.appendChild(input2);
     form.appendChild(br3);
@@ -201,7 +195,7 @@ function editar(id){
         };
         let url = "http://localhost:8080/producto";
 
-        fetch(url + "/" + idProducto, {
+        fetch(url , {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(item),

@@ -117,7 +117,6 @@ function borrar(id){
  * y queda a la espera de una petición de PUT por la url de un id del path a editar
  */
 function editar(id){
-    let url = "http://localhost:8080/cliente";
 
     let form = document.getElementById("editar");
     let label = document.createElement("label");
@@ -148,12 +147,14 @@ function editar(id){
         let name = document.getElementById("nameI").value;
 
         let item = {
+            "id": id,
             "nombreApellido": name
         };
+        console.log(item)
 
         let url = "http://localhost:8080/cliente";
 
-        fetch(url + "/" + id, {
+        fetch(url, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(item),
@@ -166,7 +167,7 @@ function editar(id){
             .then(() => {
                 contenedor.innerHTML = "Se ha editado el cliente con exito";
                 form.innerHTML = "";
-                form.setAttribute("hiden");
+                form.setAttribute("type", "hidden");
                 mostrarTabla();
             })
             .catch((e) => {

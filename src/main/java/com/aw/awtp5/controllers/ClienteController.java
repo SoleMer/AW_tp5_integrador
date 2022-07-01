@@ -33,6 +33,7 @@ public class ClienteController {
 
     @PutMapping
     public Cliente update(@RequestBody Cliente cliente) throws Throwable {
+        System.out.println(cliente);
         return this.service.save(cliente);
     }
     
