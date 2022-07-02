@@ -1,6 +1,5 @@
 package com.aw.awtp5.ropositories;
 
-import com.aw.awtp5.dto.ResumenVentaDTO;
 import com.aw.awtp5.dto.VentasDiariasDTO;
 import com.aw.awtp5.entities.DetalleVenta;
 import com.aw.awtp5.entities.DetalleVentaPK;
@@ -10,9 +9,18 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * Repositorio encargado de las transacciones con la BBDD correspondientes a la tabla detalle_venta
+ * @author arana-marsico-merino
+ * @version 1.0
+ */
 @Repository("DetalleVentaRepository")
 public interface DetalleVentaRepository extends JpaRepository<DetalleVenta, DetalleVentaPK> {
 
+    /**
+     *
+     * @return
+     */
     @Query("SELECT new com.aw.awtp5.dto.VentasDiariasDTO("
             + "v.fecha, "
             + "p.nombre, "
