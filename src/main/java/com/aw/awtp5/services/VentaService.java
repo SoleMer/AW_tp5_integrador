@@ -2,6 +2,7 @@ package com.aw.awtp5.services;
 
 import com.aw.awtp5.controllers.ProductoController;
 import com.aw.awtp5.dto.DetalleVentaDTO;
+import com.aw.awtp5.dto.ResumenVentaDTO;
 import com.aw.awtp5.entities.DetalleVenta;
 import com.aw.awtp5.entities.Producto;
 import com.aw.awtp5.entities.Venta;
@@ -32,7 +33,7 @@ public class VentaService {
 
     @Transactional
     public DetalleVentaDTO save(DetalleVentaDTO detalleVentaDTO) throws Throwable {
-        int comprasDeHoy = this.getProductosDiarios(detalleVentaDTO.getClienteId());
+        int comprasDeHoy = this.getProductosDiarios(LocalDate.now(), detalleVentaDTO.getClienteId());
         if (comprasDeHoy >= 3) {
             return null;
         }
@@ -95,8 +96,8 @@ public class VentaService {
     }
 
     @Transactional
-    public int getProductosDiarios(int clienteId) {
-        return this.repository.getCantidadProductosDeHoy(clienteId);
+    public int getProductosDiarios(LocalDate fecha, int clienteId) {
+        return this.repository.getCantidadProductosDeHoy(fecha, clienteId);
     }
 
     @Transactional
@@ -114,18 +115,29 @@ public class VentaService {
         return false;
     }
 
-    /*
-    public boolean update(Venta venta) {
-        DetalleVentaDTO dv = this.detalleVentaRepository.getById(venta.getId()); //TODO
-        if (v.getClienteId() != venta.getClienteId()){
 
-        } else if (!dv.getFecha().equals(venta.getFecha())) {
-            //obtengo detalleVentaDto (cliente, fecha)
-            //compruebo si la cantidad de fechaNueva + dv.cantidad <= 3
-                //edito
-            //return false;
+    public boolean update(Venta nuevaVenta) {
+        ResumenVentaDTO v = this.repository.getById(nuevaVenta.getId());
+
+        if((v.getClienteId() != nuevaVenta.getClienteId()) && !(v.getFecha().equals(nuevaVenta.getFecha()))) {
+            return this.edit(nuevaVenta.getFecha(), nuevaVenta.getClienteId(), v.getCantidadProductos(), nuevaVenta);
+        } else {
+            if (v.getClienteId() != nuevaVenta.getClienteId()){
+                return this.edit(v.getFecha(), nuevaVenta.getClienteId(), v.getCantidadProductos(), nuevaVenta);
+            } else if (!v.getFecha().equals(nuevaVenta.getFecha())) {
+                return this.edit(nuevaVenta.getFecha(), v.getClienteId(), v.getCantidadProductos(), nuevaVenta);
+            }
+            return false;
+        }
+    }
+
+    public boolean edit(LocalDate fecha, int clienteId, Long cantidadActual, Venta nuevaVenta) {
+        int cantidad = this.getProductosDiarios(fecha, clienteId);
+        if (cantidadActual + cantidad <= 3) {
+            this.repository.save(nuevaVenta);
+            return true;
         }
         return false;
     }
-    */
+
 }

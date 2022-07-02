@@ -1,5 +1,6 @@
 package com.aw.awtp5.ropositories;
 
+import com.aw.awtp5.dto.ResumenVentaDTO;
 import com.aw.awtp5.dto.VentasDiariasDTO;
 import com.aw.awtp5.entities.DetalleVenta;
 import com.aw.awtp5.entities.DetalleVentaPK;
@@ -28,4 +29,6 @@ public interface DetalleVentaRepository extends JpaRepository<DetalleVenta, Deta
     public void deleteDetalleVentaByVentaId(int ventaId);
 
     public void deleteAllByVentaId(int ventaId);
+
+
 }

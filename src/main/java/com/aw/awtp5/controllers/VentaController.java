@@ -39,11 +39,13 @@ public class VentaController {
         }
         return HttpStatus.NOT_ACCEPTABLE;
     }
-/*
+
     @PutMapping
-    public ResponseEntity<Venta> update(@RequestBody Venta venta) {
-        this.service.update(venta);
+    public HttpStatus update(@RequestBody Venta venta) {
+        if (this.service.update(venta)) {
+            return HttpStatus.ACCEPTED;
+        }
+        return HttpStatus.NOT_ACCEPTABLE;
     }
 
- */
 }
