@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ventas</title>
+</head>
+<body>
+<h2>AMB Ventas</h2>
+
+<table>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Cliente_ID</th>
+    <th>Fecha</th>
+    <th>Borrar</th>
+    <th>Editar</th>
+  </tr>
+  </thead>
+  <tbody id="body">
+
+  </tbody>
+</table>
+<br>
+<p id="contenedorBorrar"></p>
+<br>
+<form id="editar">
+</form>
+<p id=contenedorEditar></p>
+<br>
+<form>
+  <div>
+    <br>
+    <br>
+    <label>Insertar una venta:</label>
+    <input type="number" name="idCliente" id="idCliente" placeholder="id del cliente" required>
+    <br>
+    <input type="date" name="fecha" id="fecha" placeholder="fecha de la venta" required>
+    <br>
+    <input type="button" id="btnInsertProduct" value="ENVIAR">
+  </div>
+</form>
+<p id="contenedorInsert"></p>
+<br>
+
+<script type="text/javascript" src="venta.js"></script>
+</body>
+</html>

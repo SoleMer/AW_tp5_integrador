@@ -1,12 +1,11 @@
 "use strict"
 
-
 /**
  * @description muestra la tabla realizando un GET y creando dinamicamente
  * el renderizado del contenido obtenido del JSON
  */
 function mostrarTabla() {
-    let url = "http://localhost:8080/producto";
+    let url = "http://localhost:8080/venta";
     let tbody = document.getElementById("body");
     let contenedor = document.getElementById("contenedorInsert");
 
@@ -26,7 +25,6 @@ function mostrarTabla() {
                     let td3 = document.createElement("td");
                     let td4 = document.createElement("td");
                     let td5 = document.createElement("td");
-                    let td6 =  document.createElement("td");
                     let btnBorrar = document.createElement("button");
                     btnBorrar.innerHTML = "borrar";
                     let btnEditar = document.createElement("button");
@@ -35,13 +33,11 @@ function mostrarTabla() {
                     btnBorrar.addEventListener("click", () => borrar(id));
                     btnEditar.addEventListener("click", () => editar(id));
                     td1.innerText = data.id;
-                    td2.innerText = data.nombre;
-                    td3.innerText = data.precio;
-                    td6.innerText = data.stock;
+                    td2.innerText = data.clienteId;
+                    td3.innerText = data.fecha;
                     tr.appendChild(td1);
                     tr.appendChild(td2);
                     tr.appendChild(td3);
-                    tr.appendChild(td6);
                     tr.appendChild(td4);
                     tr.appendChild(td5);
                     td4.appendChild(btnBorrar)
@@ -59,26 +55,24 @@ function mostrarTabla() {
 
 
 /**
- * @description Interacción con AJAX con la entidad de Product
+ * @description Interacción con AJAX con la entidad de Venta
  * muestra la tabla y espera con un fetch a una petición POST de la URL
  */
 function inicio() {
 
     mostrarTabla();
     document.getElementById("btnInsertProduct").addEventListener("click", ()=>{
-        let nombre = document.getElementById("nombre").value;
-        let precio = document.getElementById("precio").value;
-        let stock = document.getElementById("stock").value;
+        let cliente = document.getElementById("idCliente").value;
+        let fecha = document.getElementById("fecha").value;
 
         let item = {
-            "nombre": nombre,
-            "stock": stock,
-            "precio": precio
+            "clienteId": cliente,
+            "fecha": fecha
         };
 
         console.log(item);
 
-        let url = "http://localhost:8080/producto";
+        let url = "http://localhost:8080/venta";
         let contenedor = document.getElementById("contenedorInsert");
 
         fetch(url, {
@@ -93,9 +87,9 @@ function inicio() {
             })
             .then(() => {
                 contenedor.innerHTML = "Se ha insertado el producto con exito";
-                document.getElementById("nombre").value = "";
-                document.getElementById("precio").value = "";
-                document.getElementById("stock").value = "";
+
+                document.getElementById("idCliente").value = "";
+                document.getElementById("fecha").value = "";
                 mostrarTabla();
             })
             .catch((e) => {
@@ -104,14 +98,12 @@ function inicio() {
     });
 }
 
-
 /**
- * @description elimina un producto de la base de datos luego que se cumple
+ * @description elimina una venta de la base de datos luego que se cumple
  * la promesa del método DELETE con la url correspondiente al id a eliminar
  */
 function borrar(id){
-    console.log(id);
-    let url = "http://localhost:8080/producto";
+    let url = "http://localhost:8080/venta";
     let contenedor = document.getElementById("contenedorBorrar");
 
     fetch(url + "/" + id, {
@@ -122,91 +114,77 @@ function borrar(id){
             contenedor.innerHTML = "Se ha borrado correctamente";
             mostrarTabla();
         } else {
-            contenedor.innerHTML = "No puede borrar un producto asociado a una factura";
+            contenedor.innerHTML = "No puede borrar un cliente asociado a una factura";
         }
     }).catch(error => {
-        console.log(error);
         contenedor.innerHTML = "<h1>Error - Conection Failed!</h1>";
     });
 }
 
-
-
 /**
- * @description renderiza el formulario de edición de un producto,
+ * @description renderiza el formulario de edición de una venta,
  * y queda a la espera de una petición de PUT por la url de un id del path a editar
  */
 function editar(id){
+
     let form = document.getElementById("editar");
     let label = document.createElement("label");
-    label.innerHTML = "Editar un producto: ";
-
-
+    label.innerHTML = "Editar una venta: ";
 
     let br2 = document.createElement("br");
     let input2 = document.createElement("input");
     input2.type = "text";
-    input2.placeholder = "Inserte nuevo nombre";
-    input2.id = "nameI";
+    input2.placeholder = "Inserte nuevo id cliente";
+    input2.id = "idCliente";
 
     let br3 = document.createElement("br");
     let input3 = document.createElement("input");
-    input3.type = "text";
-    input3.placeholder = "Inserte nuevo valor de unidad";
-    input3.id = "unitPriceI";
+    input3.type = "date";
+    input3.placeholder = "Inserte nuevo id cliente";
+    input3.id = "fecha";
 
     let br4 = document.createElement("br");
-    let input4 = document.createElement("input");
-    input4.type = "text";
-    input4.placeholder = "Inserte nuevo valor de unidad";
-    input4.id = "stock";
-
-    let br5 = document.createElement("br");
     let boton = document.createElement("input");
     boton.type = "button";
     boton.value = "EDITAR";
     boton.id = "enviar";
 
     form.appendChild(label);
-
     form.appendChild(br2);
     form.appendChild(input2);
     form.appendChild(br3);
     form.appendChild(input3);
     form.appendChild(br4);
-    form.appendChild(input4);
-    form.appendChild(br5);
     form.appendChild(boton);
 
     document.getElementById("enviar").addEventListener("click", () => {
         let contenedor = document.getElementById("contenedorEditar");
-
-        let idProducto = id;
-        let name = document.getElementById("nameI").value;
-        let unitPrice = document.getElementById("unitPriceI").value;
-        let stock = document.getElementById("stock").value;
+        let cliente = document.getElementById("idCliente").value;
+        let fecha = document.getElementById("fecha").value;
 
         let item = {
-            "id": idProducto,
-            "nombre": name,
-            "precio": unitPrice,
-            "stock": stock
+            "id": id,
+            "clienteId": cliente,
+            "fecha": fecha
         };
-        let url = "http://localhost:8080/producto";
+        console.log(item)
 
-        fetch(url , {
+        let url = "http://localhost:8080/venta";
+
+        fetch(url, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(item),
         })
             .then((r) => {
                 if (!r.ok) {
-                    contenedor.innerHTML = "No se ha podido insertar el producto, revise los datos ingresados e intente nuevamente";
+                    contenedor.innerHTML = "No se ha podido insertar la venta, revise los datos ingresados e intente nuevamente";
                 }
             })
             .then(() => {
-                contenedor.innerHTML = "Se ha editado el producto con exito";
+                contenedor.innerHTML = "Se ha editado la venta con exito";
                 form.innerHTML = "";
+                form.setAttribute("type", "hidden");
                 mostrarTabla();
             })
             .catch((e) => {

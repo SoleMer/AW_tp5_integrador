@@ -58,9 +58,9 @@ function mostrarTabla() {
 function inicio() {
     mostrarTabla();
     document.getElementById("btnInsertClient").addEventListener("click", ()=>{
-        let name = document.getElementById("name").value;
+        let nombre = document.getElementById("nombre").value;
         let item = {
-            "nombreApellido": name
+            "nombreApellido": nombre
         };
         console.log(item);
         let url = "http://localhost:8080/cliente";
@@ -78,7 +78,7 @@ function inicio() {
             })
             .then(() => {
                 contenedor.innerHTML = "Se ha insertado el usuario con exito";
-                document.getElementById("name").value = "";
+                document.getElementById("nombre").value = "";
                 mostrarTabla();
             })
             .catch((e) => {
@@ -144,11 +144,11 @@ function editar(id){
         let contenedor = document.getElementById("contenedorEditar");
 
 
-        let name = document.getElementById("nameI").value;
+        let nombre = document.getElementById("nameI").value;
 
         let item = {
             "id": id,
-            "nombreApellido": name
+            "nombreApellido": nombre
         };
         console.log(item)
 
