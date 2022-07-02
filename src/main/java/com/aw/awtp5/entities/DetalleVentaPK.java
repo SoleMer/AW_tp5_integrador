@@ -1,12 +1,15 @@
 package com.aw.awtp5.entities;
 
 import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * Entidad que representa la clave primaria compuesta de la tabla 'detalle_venta'
+ * @author arana-marsico-merino
+ * @version 1.0
+ */
 public class DetalleVentaPK implements Serializable {
     @Column(name = "Producto_id")
     @Id

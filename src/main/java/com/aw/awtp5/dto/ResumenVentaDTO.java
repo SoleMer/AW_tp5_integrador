@@ -4,6 +4,11 @@ import lombok.Getter;
 
 import java.time.LocalDate;
 
+/**
+ * DTO que resume la cantidad de productos que fueron vendidos a un cliente en una fecha
+ * @author arana-marsico-merino
+ * @version 1.0
+ */
 @Getter
 public class ResumenVentaDTO {
 

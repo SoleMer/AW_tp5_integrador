@@ -24,9 +24,9 @@ public interface VentaRepository extends JpaRepository<Venta, Integer> {
      * @return
      */
     @Query("SELECT COALESCE(sum(dv.cantidad), 0) " +
-            "FROM venta v " +
-            "JOIN detalle_venta dv ON v.id = dv.venta_id AND v.fecha = ?1 " +
-            "WHERE v.cliente_id = ?2 ")
+            "FROM Venta v " +
+            "JOIN DetalleVenta dv ON v.id = dv.ventaId AND v.fecha = ?1 " +
+            "WHERE v.clienteId = ?2 ")
     int getCantidadProductosDeHoy(LocalDate fecha, int clienteId);
 
     /**
