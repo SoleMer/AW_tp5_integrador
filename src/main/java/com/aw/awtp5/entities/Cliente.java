@@ -19,6 +19,13 @@ public class Cliente {
     @Column(name = "nombre_apellido")
     private String nombreApellido;
 
+    public Cliente(String nombreApellido){
+        this.nombreApellido = nombreApellido;
+    }
+
+    public Cliente() {
+    }
+
     public int getId() {
         return id;
     }
