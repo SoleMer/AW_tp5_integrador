@@ -1,10 +1,14 @@
 package com.aw.awtp5.entities;
 
 import javax.persistence.*;
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Objects;
 
+/**
+ * Entidad que representa la tabla 'venta'
+ * @author arana-marsico-merino
+ * @version 1.0
+ */
 @Entity
 @Table(name = "venta", schema = "tp5_integrador", catalog = "")
 public class Venta {

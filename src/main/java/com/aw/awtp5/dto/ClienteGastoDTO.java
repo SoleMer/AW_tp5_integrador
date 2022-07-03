@@ -1,5 +1,13 @@
 package com.aw.awtp5.dto;
 
+import lombok.Getter;
+
+/**
+ * DTO que resume el nombre completo de un cliente y el total de sus compras
+ * @author arana-marsico-merino
+ * @version 1.0
+ */
+@Getter
 public class ClienteGastoDTO {
     private String nombreApellido;
     private double totalCompras;
@@ -10,19 +18,4 @@ public class ClienteGastoDTO {
         this.totalCompras = totalCompras;
     }
 
-    public String getNombreApellido() {
-        return nombreApellido;
-    }
-
-    public void setNombreApellido(String nombreApellido) {
-        this.nombreApellido = nombreApellido;
-    }
-
-    public double getTotalCompras() {
-        return totalCompras;
-    }
-
-    public void setTotalCompras(double totalCompras) {
-        this.totalCompras = totalCompras;
-    }
 }

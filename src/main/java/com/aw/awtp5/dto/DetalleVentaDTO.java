@@ -6,7 +6,12 @@ import lombok.Getter;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * DTO qe resume el id de un cliente y el listado de productos y la cantidad que se desea vender
+ * Se utiliza para recibir información por parte del usuario, que luego será almacenada en las tablas venta y detalle_venta
+ * @author arana-marsico-merino
+ * @version 1.0
+ */
 @Getter
 public class DetalleVentaDTO {
 

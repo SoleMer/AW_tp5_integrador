@@ -3,6 +3,11 @@ package com.aw.awtp5.entities;
 import javax.persistence.*;
 import java.util.Objects;
 
+/**
+ * Entidad que representa la tabla 'producto'
+ * @author arana-marsico-merino
+ * @version 1.0
+ */
 @Entity
 @Table(name = "producto", schema = "tp5_integrador", catalog = "")
 public class Producto {

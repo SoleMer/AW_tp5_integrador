@@ -3,6 +3,11 @@ package com.aw.awtp5.entities;
 import javax.persistence.*;
 import java.util.Objects;
 
+/**
+ * Entidad que representa la tabla 'detalle_venta'
+ * @author arana-marsico-merino
+ * @version 1.0
+ */
 @Entity
 @Table(name = "detalle_venta", schema = "tp5_integrador", catalog = "")
 @IdClass(DetalleVentaPK.class)
