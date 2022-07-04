@@ -100,6 +100,7 @@ function inicio() {
             })
             .catch((e) => {
                 console.log(e);
+                contenedor.innerHTML = "No se pudo añadir";
             });
     });
 }
@@ -138,8 +139,9 @@ function borrar(id){
  */
 function editar(id){
     let form = document.getElementById("editar");
+    form.innerHTML = "";
     let label = document.createElement("label");
-    label.innerHTML = "Editar un producto: ";
+    label.innerHTML = "Editar el producto: " + id;
 
 
 
@@ -211,6 +213,7 @@ function editar(id){
             })
             .catch((e) => {
                 console.log(e);
+                contenedor.innerHTML = "No se pudo editar";
             });
     });
 }

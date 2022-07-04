@@ -3,6 +3,7 @@ package com.aw.awtp5.services;
 import com.aw.awtp5.controllers.ProductoController;
 import com.aw.awtp5.dto.DetalleVentaDTO;
 import com.aw.awtp5.dto.ResumenVentaDTO;
+import com.aw.awtp5.dto.VentaDetalleDTO;
 import com.aw.awtp5.entities.DetalleVenta;
 import com.aw.awtp5.entities.Producto;
 import com.aw.awtp5.entities.Venta;
@@ -25,6 +26,8 @@ import java.util.List;
 @Service("VentaService")
 public class VentaService {
 
+    private final int MAXIMO_PRODUCTOS_PERMITIDOS = 3;
+
     @Autowired
     VentaRepository repository;
 
@@ -45,18 +48,18 @@ public class VentaService {
      * Guarda la venta y, posteriormente, el detalle de la venta para cada producto</p>
      * @param detalleVentaDTO venta y su detalle a guardar
      * @return boolean indicador del resultado de la transacción
-     * @throws Throwable
+     * @throws Throwable posible excepción
      */
     @Transactional
     public boolean save(DetalleVentaDTO detalleVentaDTO) throws Throwable {
         int comprasDeHoy = this.getProductosDiarios(LocalDate.now(), detalleVentaDTO.getClienteId());
-        if (comprasDeHoy >= 3) {
+        if (comprasDeHoy >= MAXIMO_PRODUCTOS_PERMITIDOS) {
             return false;
         }
 
         int totalCompras = this.sumarComprasDelCarrito(comprasDeHoy, detalleVentaDTO.getProductos());
 
-        if (totalCompras > 3) {
+        if (totalCompras > MAXIMO_PRODUCTOS_PERMITIDOS) {
             return false;
         }
 
@@ -119,8 +122,8 @@ public class VentaService {
 
     /**
      * Obtiene la cantidad de productos vendidos en el día al cliente que desea realizar la compra
-     * @param fecha
-     * @param clienteId
+     * @param fecha buscada
+     * @param clienteId buscado
      * @return cantidad de productos vendidos al cliente
      */
     @Transactional
@@ -130,12 +133,22 @@ public class VentaService {
 
     /**
      * Realiza la petición de todas las ventas por día al repositorio
-     * @return Lista de todas las Ventas
+     * @return Lista de todas las Ventas con su detalle
      * @throws Throwable
      */
     @Transactional
-    public List<Venta> getVentasPorDia() {
-        return this.repository.getAll();
+    public List<VentaDetalleDTO> getVentasPorDia() throws Throwable{
+        List<Venta> ventas = this.repository.getAll();
+        List<VentaDetalleDTO> ventasDetalle = new ArrayList<>();
+        for (Venta v: ventas) {
+            VentaDetalleDTO dto = new VentaDetalleDTO(v);
+            List<DetalleVenta> detalle = this.detalleVentaRepository.findAllByVentaId(v.getId());
+            for (DetalleVenta dv: detalle ) {
+                dto.addDetalle(dv);
+            }
+            ventasDetalle.add(dto);
+        }
+        return ventasDetalle;
     }
 
     /**
@@ -161,9 +174,10 @@ public class VentaService {
      * Verifica si se quieren editar el cliente la fecha o ambos datos.
      * <p>Realiza el llamado al método encargado de verificasr si se puede guardar la venta</p>
      * @param nuevaVenta
-     * @return
+     * @return indicador del resultado de la transacción
+     * @throws Throwable posible excepción
      */
-    public boolean update(Venta nuevaVenta) {
+    public boolean update(Venta nuevaVenta)  throws Throwable{
         ResumenVentaDTO v = this.repository.getById(nuevaVenta.getId());
 
         if((v.getClienteId() != nuevaVenta.getClienteId()) && !(v.getFecha().equals(nuevaVenta.getFecha()))) {
@@ -188,13 +202,21 @@ public class VentaService {
      * @param nuevaVenta
      * @return
      */
-    public boolean edit(LocalDate fecha, int clienteId, Long cantidadActual, Venta nuevaVenta) {
+    private boolean edit(LocalDate fecha, int clienteId, Long cantidadActual, Venta nuevaVenta) {
         int cantidad = this.getProductosDiarios(fecha, clienteId);
-        if (cantidadActual + cantidad <= 3) {
+        if (cantidadActual + cantidad <= MAXIMO_PRODUCTOS_PERMITIDOS) {
             this.repository.save(nuevaVenta);
             return true;
         }
         return false;
     }
 
+    /**
+     * Obtiene la última venta insertada en la tabla
+     * <p>Se utiliza sólo para la carga aleatoria de elemenos</p>
+     * @return última Venta
+     */
+    public Venta getUltimaInsertada() {
+        return this.repository.getUltimaInsercion().get(0);
+    }
 }

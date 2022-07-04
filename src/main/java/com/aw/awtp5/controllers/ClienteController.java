@@ -81,10 +81,10 @@ public class ClienteController {
      * <p>Se accede mediante el método delete y al path inicial se le agrega el id del cliente a eliminar</p>
      * @param id del cliente a eliminar
      * @return resultado de la transacción
-     * @throws Throwable
+     * @throws Throwable posible excepción
      */
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable String id) {
+    public ResponseEntity<?> delete(@PathVariable String id)  throws Throwable{
         if (this.service.delete(Integer.valueOf(id)))
             return new ResponseEntity<>(HttpStatus.OK);
         return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
@@ -93,8 +93,8 @@ public class ClienteController {
     /**
      * Solicita al servicio el total de gastos realizados por cada cliente
      * <p>Se accede mediante el método get y al path nicial se le agrega "/gastos"</p>
-     * @return
-     * @throws Throwable
+     * @return Lista de ClienteGastoDTO
+     * @throws Throwable posible excepción
      */
     @GetMapping("/gastos")
     public List<ClienteGastoDTO> getTotalCompras() throws Throwable{

@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
+
 /**
  * Repositorio encargado de las transacciones con la BBDD correspondientes a la tabla detalle_venta
  * @author arana-marsico-merino
@@ -20,5 +22,5 @@ public interface DetalleVentaRepository extends JpaRepository<DetalleVenta, Deta
 
     public void deleteAllByVentaId(int ventaId);
 
-
+    public ArrayList<DetalleVenta> findAllByVentaId(int ventaId);
 }

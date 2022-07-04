@@ -49,10 +49,10 @@ public class ClienteService {
      * <p>Verifica qe el cliente exista</p>
      * @param id del cliente a eliminar
      * @return boolean indicador de resultado de la transacción
-     * @throws Throwable
+     * @throws Throwable posible excepción
      */
     @Transactional
-    public boolean delete(int id) {
+    public boolean delete(int id) throws Throwable{
         if(this.repository.existsById(id)){
             this.repository.deleteById(id);
             return true;

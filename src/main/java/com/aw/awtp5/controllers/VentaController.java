@@ -1,6 +1,7 @@
 package com.aw.awtp5.controllers;
 
 import com.aw.awtp5.dto.DetalleVentaDTO;
+import com.aw.awtp5.dto.VentaDetalleDTO;
 import com.aw.awtp5.entities.Venta;
 import com.aw.awtp5.services.VentaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class VentaController {
      * <p>Se accede mediante el método post</p>
      * @param detalleVentaDTO detalles de la venta y su detalle a guardar
      * @return resultado de la transacción
-     * @throws Throwable
+     * @throws Throwable posible excepción
      */
     @PostMapping
     public ResponseEntity<?> save(@RequestBody DetalleVentaDTO detalleVentaDTO)  throws Throwable {
@@ -41,10 +42,10 @@ public class VentaController {
      * Solicita el listado de ventas ordenadas por día al servicio
      * <p>Se accede mediante el método get</p>
      * @return Lista de Ventas
-     * @throws Throwable
+     * @throws Throwable posible excepción
      */
     @GetMapping
-    public List<Venta> getVentasPorDia() {
+    public List<VentaDetalleDTO> getVentasPorDia() throws Throwable{
         return this.service.getVentasPorDia();
     }
 
@@ -67,10 +68,10 @@ public class VentaController {
      * <p>Se accede mediante el método put</p>
      * @param venta con datos nuevos
      * @return resultado de la transacción
-     * @throws Throwable
+     * @throws Throwable posible excepción
      */
     @PutMapping
-    public ResponseEntity<?> update(@RequestBody Venta venta) {
+    public ResponseEntity<?> update(@RequestBody Venta venta) throws Throwable{
         if (this.service.update(venta))
             return new ResponseEntity<>(HttpStatus.OK);
         return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);

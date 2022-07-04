@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.aw.awtp5"},{"l":"com.aw.awtp5.controllers"},{"l":"com.aw.awtp5.dto"},{"l":"com.aw.awtp5.entities"},{"l":"com.aw.awtp5.ropositories"},{"l":"com.aw.awtp5.services"},{"l":"com.aw.awtp5.utils"}];updateSearchResults();

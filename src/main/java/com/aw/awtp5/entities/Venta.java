@@ -26,6 +26,12 @@ public class Venta {
     public Venta() {
     }
 
+    public Venta(int id, int clienteId, LocalDate fecha) {
+        this.id = id;
+        this.clienteId = clienteId;
+        this.fecha = fecha;
+    }
+
     public Venta(int clienteId, LocalDate fecha) {
         this.clienteId = clienteId;
         this.fecha = fecha;

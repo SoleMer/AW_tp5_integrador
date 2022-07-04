@@ -19,9 +19,9 @@ public interface VentaRepository extends JpaRepository<Venta, Integer> {
 
     /**
      * Obtiene la cantidad de productos vendidos a un cliente particular en una fecha indicada
-     * @param fecha
-     * @param clienteId
-     * @return
+     * @param fecha buscada
+     * @param clienteId buscado
+     * @return cantidad de productos vendidos en el día a un cliente
      */
     @Query("SELECT COALESCE(sum(dv.cantidad), 0) " +
             "FROM Venta v " +
@@ -31,11 +31,15 @@ public interface VentaRepository extends JpaRepository<Venta, Integer> {
 
     /**
      * Obtiene el listado de Ventas ordenadas por fecha
-     * @return
+     * @return Lista de ventas
      */
     @Query("select v from Venta v order by v.fecha desc")
     List<Venta> getAll();
 
+    /**
+     * Elimina una venta por id
+     * @param id de la venta que se desea eliminar
+     */
     public void deleteVentaById(int id);
 
     /**
@@ -46,4 +50,11 @@ public interface VentaRepository extends JpaRepository<Venta, Integer> {
     @Query("select new com.aw.awtp5.dto.ResumenVentaDTO(v.clienteId, v. fecha, sum(dv.cantidad)) " +
             "from Venta v join DetalleVenta dv on v.id = dv.ventaId where v.id = ?1")
     public ResumenVentaDTO getById(int id);
+
+    /**
+     * Obtiene una lista de ventas ordenadas descendientemente por id
+     * @return Lista de ventas
+     */
+    @Query("select new Venta(v.id, v.clienteId, v.fecha) from Venta v order by v.id desc")
+    public List<Venta> getUltimaInsercion();
 }

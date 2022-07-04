@@ -25,19 +25,29 @@ function mostrarTabla() {
                     let td3 = document.createElement("td");
                     let td4 = document.createElement("td");
                     let td5 = document.createElement("td");
+                    let td6 = document.createElement("td");
                     let btnBorrar = document.createElement("button");
                     btnBorrar.innerHTML = "borrar";
                     let btnEditar = document.createElement("button");
                     btnEditar.innerHTML = "editar";
-                    let id = data.id;
+                    let id = data.venta.id;
                     btnBorrar.addEventListener("click", () => borrar(id));
                     btnEditar.addEventListener("click", () => editar(id));
-                    td1.innerText = data.id;
-                    td2.innerText = data.clienteId;
-                    td3.innerText = data.fecha;
+                    console.log(data);
+                    td1.innerText = data.venta.id;
+                    td2.innerText = data.venta.clienteId;
+                    td3.innerText = data.venta.fecha;
+                    let list = document.createElement("ul");
+                    data.detallesVentas.forEach(e => {
+                        let li = document.createElement("li");
+                        li.innerHTML = "producto: " +e.productoId + ", cantidad: " + e.cantidad;
+                        list.appendChild(li);
+                    })
+                    td6.appendChild(list);
                     tr.appendChild(td1);
                     tr.appendChild(td2);
                     tr.appendChild(td3);
+                    tr.appendChild(td6);
                     tr.appendChild(td4);
                     tr.appendChild(td5);
                     td4.appendChild(btnBorrar)
@@ -107,17 +117,18 @@ function inicio() {
         })
             .then((r) => {
                 if (!r.ok) {
-                    contenedor.innerHTML = "No se ha podido insertar el producto, revise los datos ingresados e intente nuevamente";
+                    contenedor.innerHTML = "No se ha podido insertar la venta, revise los datos ingresados e intente nuevamente";
                 }
             })
             .then(() => {
-                contenedor.innerHTML = "Se ha insertado el producto con exito";
+                contenedor.innerHTML = "Se ha insertado la venta con exito";
 
                 document.getElementById("idCliente").value = "";
                 mostrarTabla();
             })
             .catch((e) => {
                 console.log(e);
+                contenedor.innerHTML = "No se pudo añadir";
             });
     });
 }
@@ -152,8 +163,9 @@ function borrar(id){
 function editar(id){
 
     let form = document.getElementById("editar");
+    form.innerHTML = "";
     let label = document.createElement("label");
-    label.innerHTML = "Editar una venta: ";
+    label.innerHTML = "Editar la venta: " + id;
 
     let br2 = document.createElement("br");
     let input2 = document.createElement("input");

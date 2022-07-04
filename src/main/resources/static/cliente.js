@@ -83,6 +83,7 @@ function inicio() {
             })
             .catch((e) => {
                 console.log(e);
+                contenedor.innerHTML = "No se pudo añadir";
             });
     });
 }
@@ -119,8 +120,9 @@ function borrar(id){
 function editar(id){
 
     let form = document.getElementById("editar");
+    form.innerHTML = "";
     let label = document.createElement("label");
-    label.innerHTML = "Editar un cliente: ";
+    label.innerHTML = "Editar el cliente: " + id;
 
     let br2 = document.createElement("br");
     let input2 = document.createElement("input");
@@ -172,6 +174,7 @@ function editar(id){
             })
             .catch((e) => {
                 console.log(e);
+                contenedor.innerHTML = "No se pudo editar";
             });
     });
 }
