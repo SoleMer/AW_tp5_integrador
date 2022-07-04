@@ -34,10 +34,16 @@
   <div>
     <br>
     <br>
-    <label>Insertar una venta:</label>
-    <input type="number" name="idCliente" id="idCliente" placeholder="id del cliente" required>
+    <label>Insertar una venta :</label>
+    <input type="number" min="1" name="idCliente" id="idCliente" placeholder="id del cliente" required>
     <br>
-    <input type="date" name="fecha" id="fecha" placeholder="fecha de la venta" required>
+
+    <div style="display: flex; flex-direction: row">
+      <input type="number" min="1" name="producto" id="idProducto" placeholder="id del producto">
+      <input type="number" min="1" max="3" name="producto" id="idCantidad" placeholder="cantidad">
+      <button type="button" id="añadir_producto">añadir producto </button>
+    </div>
+    <p id="informar_producto_añadido"></p>
     <br>
     <input type="button" id="btnInsertProduct" value="ENVIAR">
   </div>

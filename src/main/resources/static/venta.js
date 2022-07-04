@@ -59,15 +59,40 @@ function mostrarTabla() {
  * muestra la tabla y espera con un fetch a una petición POST de la URL
  */
 function inicio() {
+    let listaProductos = [];
 
     mostrarTabla();
+    document.getElementById("añadir_producto").addEventListener("click", () => {
+        let idprod = document.getElementById("idProducto").value;
+        let cantidad = document.getElementById("idCantidad").value;
+
+        listaProductos.push({
+            "productoId" : parseInt(idprod),
+            "cantidad" : parseInt(cantidad)
+        });
+
+        document.getElementById("informar_producto_añadido").innerHTML = imprimirLista();
+
+    })
+
+    function imprimirLista(){
+        let lista =  "productos añadidos: <br>";
+
+        listaProductos.forEach(e => {
+            console.log(e)
+            lista += "prducto: " + e.productoId + "; cantidad: " + e.cantidad + " <br>";
+        })
+        return lista;
+    }
+
+
     document.getElementById("btnInsertProduct").addEventListener("click", ()=>{
         let cliente = document.getElementById("idCliente").value;
-        let fecha = document.getElementById("fecha").value;
+
 
         let item = {
             "clienteId": cliente,
-            "fecha": fecha
+            "productos": listaProductos
         };
 
         console.log(item);
@@ -89,7 +114,6 @@ function inicio() {
                 contenedor.innerHTML = "Se ha insertado el producto con exito";
 
                 document.getElementById("idCliente").value = "";
-                document.getElementById("fecha").value = "";
                 mostrarTabla();
             })
             .catch((e) => {

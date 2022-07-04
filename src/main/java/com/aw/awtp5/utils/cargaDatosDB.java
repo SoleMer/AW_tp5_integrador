@@ -11,17 +11,12 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.IntStream;
 
 @Configuration
 public class cargaDatosDB {
 
-    long DNI = 1000;
-    int QUANTITY = 50;
-
+/*
     @Bean
     public CommandLineRunner initDB(ProductoRepository productos, ClienteRepository clientes, VentaService venta) {
         return args -> {
@@ -73,7 +68,7 @@ public class cargaDatosDB {
                 }
           }
         };
-    }
+    }*/
 }
 
 
